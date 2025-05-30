@@ -1,6 +1,12 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+import { Dancing_Script } from "next/font/google"
+
+const dancing = Dancing_Script({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+})
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -115,31 +121,35 @@ export default function Portfolio() {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
+      title: "AI-Powered Short Video Generator",
       description:
-        "A full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.",
-      image: "/placeholder.svg?height=200&width=300",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "#",
-      live: "#",
+        "A full-stack AI-powered video generation platform built with Next.js, React, Tailwind CSS, and Convex. Users can input scripts or ideas to generate short videos automatically. Includes authentication, dashboard, video history, and credit-based usage system.",
+      image: "/videogen.png",
+      tech: ["Next.js", "React", "Tailwind CSS", "Convex", "Inngest", "Gemini", "AIGurulab"],
+      github: "https://github.com/ashish-2106/Short-Video-Generator.git",
+      live: "https://shortvideo.yourdomain.com",
+
     },
     {
-      title: "Task Management App",
+      title: "Derma Vision: AI Chatbot (Voice & Vision)",
       description:
-        "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
-      image: "/placeholder.svg?height=200&width=300",
-      tech: ["Next.js", "TypeScript", "Prisma", "Socket.io"],
-      github: "#",
-      live: "#",
+        "An AI-powered dermatology assistant that uses the Meta LLaMA 4 Scout 17B model to analyze skin images and support intelligent voice interaction. Built with Gradio, Firebase, and SQLite, it includes user authentication, history of all queries, and the ability to generate and send diagnostic reports to doctors.",
+      image: "/dermavision.png",
+      tech: ["Python", "Gradio", "Whisper AI", "gTTS", "SQLite", "Firebase", "LLaMA 4 Scout 17B"],
+      github: "https://github.com/ashish-2106/Derma-Vision-Ai-Medical-chatbot-voice-vision.git",
+      live: "https://dermavision.yourdomain.com",
+
+
     },
     {
-      title: "Weather Dashboard",
+      title: "Password Manager",
       description:
-        "A responsive weather dashboard with location-based forecasts, interactive maps, and detailed weather analytics.",
-      image: "/placeholder.svg?height=200&width=300",
-      tech: ["React", "API Integration", "Chart.js", "Tailwind"],
-      github: "#",
-      live: "#",
+        "A user-friendly password manager built with Next.js, Clerk, Tailwind CSS, and ShadCN UI. Features include secure password storage, generation, cloud syncing via Clerk, biometric authentication, and encrypted vault sharing. Provides real-time breach alerts and an intuitive, responsive UI for seamless password management.",
+      image: "/passmanager.png",
+      tech: ["Next.js", "Clerk", "Tailwind CSS", "ShadCN UI", "Encryption"],
+      github: "https://github.com/ashish-2106/Password-Manager.git",
+      live: "https://passwordvault.yourdomain.com",
+
     },
   ]
 
@@ -156,7 +166,18 @@ export default function Portfolio() {
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-white">Portfolio</div>
+
+            <div
+              className="text-4xl font-bold animate-pulse bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
+              style={{ fontFamily: "'Dancing Script', cursive" }}
+            >
+              Ashish
+            </div>
+           
+
+
+
+
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
@@ -505,7 +526,7 @@ export default function Portfolio() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                     <div className="p-4 w-full">
                       <h4 className="text-white font-bold text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        View Details
+
                       </h4>
                     </div>
                   </div>
@@ -524,23 +545,27 @@ export default function Portfolio() {
                     ))}
                   </div>
                   <div className="flex gap-4">
-                    <Button
-                      size="sm"
-                      className="bg-white text-black flex-1 border border-gray-300 hover:bg-gray-100 hover:border-gray-500 group-hover:animate-pulse"
-                    >
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </Button>
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button
+                        size="sm"
+                        className="w-full bg-white text-black border border-gray-300 hover:bg-gray-100 hover:border-gray-500 group-hover:animate-pulse"
+                      >
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                      </Button>
+                    </a>
 
-
-                    <Button
-                      size="sm"
-                      className="bg-black hover:bg-gray-900 flex-1 border border-white/20 hover:border-white/40 group-hover:animate-pulse"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live
-                    </Button>
+                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button
+                        size="sm"
+                        className="w-full bg-black hover:bg-gray-900 text-white border border-white/20 hover:border-white/40 group-hover:animate-pulse"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live
+                      </Button>
+                    </a>
                   </div>
+
                 </CardContent>
               </Card>
             ))}
@@ -684,7 +709,7 @@ export default function Portfolio() {
 
           <div className="mt-8 pt-8 border-t border-white/10 text-center">
             <p className="text-gray-400">
-              © {new Date().getFullYear()} Ashish. All rights reserved.            </p>
+              © {new Date().getFullYear()} Ashish. All rights reserved.</p>
           </div>
         </div>
       </footer>
