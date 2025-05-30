@@ -29,12 +29,15 @@ import {
   FileCode,
   Braces,
   Layout,
+  Menu,
+  X,
 } from "lucide-react"
 
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
   const [animatedElements, setAnimatedElements] = useState<string[]>([])
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const observerRef = useRef<IntersectionObserver | null>(null)
 
@@ -61,7 +64,7 @@ export default function Portfolio() {
     })
 
     const handleScroll = () => {
-      const sections = ["home", "about", "skills", "projects", "contact"]
+      const sections = ["home", "about", "education", "skills", "projects", "contact"]
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -153,13 +156,47 @@ export default function Portfolio() {
       <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-black/80 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <div className="text-2xl font-bold text-white">Portfolio.Ashish</div>
+            <div className="text-2xl font-bold text-white">Portfolio</div>
+
+            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
-              {["home", "about", "skills", "projects", "contact"].map((item) => (
+              {["home", "about", "education", "skills", "projects", "contact"].map((item) => (
                 <button
                   key={item}
                   onClick={() => scrollToSection(item)}
                   className={`capitalize transition-all duration-300 hover:text-gray-300 ${activeSection === item ? "text-white" : "text-gray-400"
+                    }`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-white hover:text-gray-300 transition-colors duration-300"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <div
+            className={`md:hidden transition-all duration-300 ease-in-out ${isMobileMenuOpen ? "max-h-96 opacity-100 pb-4" : "max-h-0 opacity-0 overflow-hidden"
+              }`}
+          >
+            <div className="flex flex-col space-y-4 pt-4 border-t border-white/10">
+              {["home", "about", "education", "skills", "projects", "contact"].map((item) => (
+                <button
+                  key={item}
+                  onClick={() => {
+                    scrollToSection(item)
+                    setIsMobileMenuOpen(false)
+                  }}
+                  className={`capitalize text-left py-2 px-4 rounded-lg transition-all duration-300 hover:bg-white/10 ${activeSection === item ? "text-white bg-white/5" : "text-gray-400"
                     }`}
                 >
                   {item}
@@ -264,6 +301,124 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+      {/* Education Section */}
+      <section id="education" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div
+            id="education-header"
+            data-animate
+            className={`text-center mb-16 transition-all duration-1000 ${isAnimated("education-header") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Education</h2>
+            <div className="w-24 h-1 bg-white mx-auto"></div>
+          </div>
+
+          <div className="relative max-w-4xl mx-auto">
+            {/* Timeline Line */}
+            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-white/30"></div>
+
+            {/* College Education */}
+            <div
+              id="education-college"
+              data-animate
+              className={`relative flex flex-col md:flex-row items-start md:items-center mb-16 transition-all duration-700 ${isAnimated("education-college") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+            >
+              {/* Timeline Dot */}
+              <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-white rounded-full border-4 border-black z-10"></div>
+
+              {/* Content */}
+              <div className="ml-16 md:ml-0 md:w-1/2 md:pr-8 md:text-right">
+                <div className="bg-black border border-white/20 p-6 rounded-xl hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105">
+                  <div className="flex flex-col md:items-end">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 bg-black border border-white/30 rounded-lg flex items-center justify-center overflow-hidden mr-4 md:order-2 md:ml-4 md:mr-0">
+                        <img
+                          src="/newlbs.jpg?height=100&width=100"
+                          alt="University Logo"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="md:text-right">
+                        <h3 className="text-xl font-bold text-white">New LBS School</h3>
+                        <p className="text-gray-400 text-sm">2010 - 2021</p>
+                      </div>
+                    </div>
+                    <div className="md:text-right">
+                      <p className="text-gray-300 mb-2">Higher Secondary School</p>
+                      <div className="flex items-center mb-3 md:justify-end">
+                        <span className="px-3 py-1 bg-white text-black rounded-full text-sm font-semibold">98.80%</span>
+                      </div>
+                      <p className="text-gray-400 text-sm mb-3">
+                        Completed Higher Secondary Education (Class 12) with Physics, Chemistry, and Mathematics (PCM) from New LBS School. Built a strong academic foundation in science and analytical thinking.
+                      </p>
+                      <div className="flex flex-wrap gap-2 md:justify-end">
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">Top Performer</span>
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">Participated in Science and Math Competitions
+
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* High School Education */}
+            <div
+              id="education-highschool"
+              data-animate
+              className={`relative flex flex-col md:flex-row items-start md:items-center mb-16 transition-all duration-700 ${isAnimated("education-highschool") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                }`}
+              style={{ transitionDelay: "0.2s" }}
+            >
+              {/* Timeline Dot */}
+              <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 bg-white rounded-full border-4 border-black z-10"></div>
+
+              {/* Content */}
+              <div className="ml-16 md:ml-0 md:w-1/2 md:pl-8 md:ml-auto">
+                <div className="bg-black border border-white/20 p-6 rounded-xl hover:border-white/40 transition-all duration-300 hover:transform hover:scale-105">
+                  <div className="flex flex-col">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 bg-black border border-white/30 rounded-lg flex items-center justify-center overflow-hidden mr-4">
+                        <img
+                          src="/srm.jpg?height=50&width=50"
+                          alt="School Logo"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">SRM University</h3>
+                        <p className="text-gray-400 text-sm">2022 - 2026</p>
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-gray-300 mb-2">Bachelor of Science in Computer Science</p>
+                      <div className="flex items-center mb-3">
+                        <span className="px-3 py-1 bg-white text-black rounded-full text-sm font-semibold">9.23 CGPA</span>
+                      </div>
+                      <p className="text-gray-400 text-sm mb-3">
+                        Pursuing B.Tech in Computer Science and Engineering with a strong interest in Artificial Intelligence, Machine Learning, and Full Stack Development. Actively working on projects and continuously exploring new technologies
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">Csi Core Team Member</span>
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">
+                          Contributed to Departmental Tech Events and Hackathons
+                        </span>
+                        <span className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">
+                          Enthusiastic Learner in AI/ML and Web Development
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* Skills Section */}
       <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -529,8 +684,7 @@ export default function Portfolio() {
 
           <div className="mt-8 pt-8 border-t border-white/10 text-center">
             <p className="text-gray-400">
-              © {new Date().getFullYear()} Ashish. All rights reserved. Built with 
-            </p>
+              © {new Date().getFullYear()} Ashish. All rights reserved.            </p>
           </div>
         </div>
       </footer>
