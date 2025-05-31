@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Dancing_Script } from "next/font/google"
+import emailjs from '@emailjs/browser'
 
 const dancing = Dancing_Script({
   subsets: ["latin"],
@@ -15,6 +16,7 @@ import {
   Github,
   Linkedin,
   Twitter,
+  Instagram,
   Mail,
   Phone,
   MapPin,
@@ -37,7 +39,12 @@ import {
   Layout,
   Menu,
   X,
+  InstagramIcon,
+  Settings,
+  Boxes,
 } from "lucide-react"
+import toast from "react-hot-toast"
+
 
 export default function Portfolio() {
   const [isVisible, setIsVisible] = useState(false)
@@ -46,6 +53,34 @@ export default function Portfolio() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const observerRef = useRef<IntersectionObserver | null>(null)
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formRef.current) return;
+
+    emailjs
+      .sendForm(
+        "service_tsmx689",         // Replace with your actual service ID
+        "template_jx8zbc9",        // Replace with your template ID
+        formRef.current,
+        "SeHoyFspTzAq2B6Zr"        // Replace with your public key
+      )
+      .then(
+        () => {
+
+          toast.success("Message sent successfully!");
+          formRef.current?.reset();
+        },
+        (error) => {
+          toast.error("Failed to send message. Please try again.");
+          console.error("EmailJS Error:", error);
+        }
+      );
+  };
+
 
   useEffect(() => {
     setIsVisible(true)
@@ -108,7 +143,7 @@ export default function Portfolio() {
     { name: "MongoDB", level: 78, icon: Database, color: "#47A248" },
     { name: "PostgreSQL", level: 82, icon: Database, color: "#336791" },
     { name: "AWS", level: 75, icon: Cloud, color: "#FF9900" },
-    { name: "Docker", level: 70, icon: Layers, color: "#2496ED" },
+    { name: "Docker", level: 80, icon: Layers, color: "#2496ED" },
     { name: "Git", level: 90, icon: GitBranch, color: "#F05032" },
     { name: "Tailwind CSS", level: 93, icon: Palette, color: "#06B6D4" },
     { name: "GraphQL", level: 72, icon: Zap, color: "#E10098" },
@@ -116,7 +151,11 @@ export default function Portfolio() {
     { name: "Vue.js", level: 65, icon: Layout, color: "#4FC08D" },
     { name: "Express.js", level: 85, icon: Server, color: "#ffffff" },
     { name: "Redux", level: 80, icon: Cpu, color: "#764ABC" },
-    { name: "Figma", level: 88, icon: Palette, color: "#F24E1E" },
+    { name: "Figma", level: 75, icon: Palette, color: "#F24E1E" },
+    { name: "Jenkins", level: 78, icon: Settings, color: "#D24939" },
+    { name: "Terraform", level: 74, icon: Boxes, color: "#623CE4" },
+    { name: "Kubernetes", level: 82, icon: Cloud, color: "#326CE5" },
+
   ]
 
   const projects = [
@@ -127,8 +166,7 @@ export default function Portfolio() {
       image: "/videogen.png",
       tech: ["Next.js", "React", "Tailwind CSS", "Convex", "Inngest", "Gemini", "AIGurulab"],
       github: "https://github.com/ashish-2106/Short-Video-Generator.git",
-      live: "https://shortvideo.yourdomain.com",
-
+      live: "/coming-soon",
     },
     {
       title: "Derma Vision: AI Chatbot (Voice & Vision)",
@@ -137,7 +175,7 @@ export default function Portfolio() {
       image: "/dermavision.png",
       tech: ["Python", "Gradio", "Whisper AI", "gTTS", "SQLite", "Firebase", "LLaMA 4 Scout 17B"],
       github: "https://github.com/ashish-2106/Derma-Vision-Ai-Medical-chatbot-voice-vision.git",
-      live: "https://dermavision.yourdomain.com",
+      live: "/coming-soon",
 
 
     },
@@ -148,7 +186,7 @@ export default function Portfolio() {
       image: "/passmanager.png",
       tech: ["Next.js", "Clerk", "Tailwind CSS", "ShadCN UI", "Encryption"],
       github: "https://github.com/ashish-2106/Password-Manager.git",
-      live: "https://passwordvault.yourdomain.com",
+      live: "/coming-soon",
 
     },
   ]
@@ -159,6 +197,9 @@ export default function Portfolio() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+
+
+
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
@@ -173,7 +214,7 @@ export default function Portfolio() {
             >
               Ashish
             </div>
-           
+
 
 
 
@@ -229,99 +270,244 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden perspective-1000">
+        {/* Background overlay */}
         <div className="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+
+        {/* 3D floating circles container */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="floating-circle"
+              style={{
+                top: `${20 + i * 12}%`,
+                left: `${10 + i * 15}%`,
+                width: `${80 + i * 40}px`,
+                height: `${80 + i * 40}px`,
+                animationDelay: `${i * 1.5}s`,
+                animationDuration: `${15 + i * 5}s`,
+                animationTimingFunction: 'ease-in-out',
+              }}
+            />
+          ))}
+        </div>
+
         <div
-          className={`text-center z-10 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+          className={`text-center z-10 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+            }`}
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-pulse">Ashish</h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-300 animate-fade-in">
-            Full Stack Developer & UI/UX Designer
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white animate-pulse relative inline-block">
+            Ashish
+            <span className="absolute inset-0 rounded-lg filter blur-xl opacity-30 bg-white animate-glow"></span>
+          </h1>
+
+          <p className="text-xl md:text-2xl mb-8 text-gray-300 opacity-0 animate-fade-slide-up animation-delay-300">
+            Full Stack Developer & AI/ML Enthusiast
           </p>
-          <p className="text-lg mb-12 text-gray-400 max-w-2xl mx-auto">
+
+          <p className="text-lg mb-12 text-gray-400 max-w-2xl mx-auto opacity-0 animate-fade-slide-up animation-delay-600">
             Crafting digital experiences with modern technologies and creative design
           </p>
-          <div className="flex gap-4 justify-center">
+
+          <div className="flex gap-4 justify-center opacity-0 animate-fade-slide-up animation-delay-900">
             <Button
               onClick={() => scrollToSection("projects")}
-              className="bg-black hover:bg-gray-900 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 border border-white/20 hover:border-white/40 animate-slide-up"
-              style={{ animationDelay: "0.2s" }}
+              className="bg-black hover:bg-gray-900 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 border border-white/20 hover:border-white/40 animate-pulse-on-hover"
             >
               View My Work
             </Button>
             <Button
               onClick={() => scrollToSection("contact")}
               variant="outline"
-              className="bg-white text-black hover:bg-gray-100 hover:scale-105 hover:shadow-lg px-8 py-3 rounded-full transition-all duration-300 animate-slide-up"
-              style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+              className="bg-white text-black hover:bg-gray-100 hover:scale-105 hover:shadow-lg px-8 py-3 rounded-full transition-all duration-300 animate-pulse-on-hover"
             >
               Get In Touch
             </Button>
-
-
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-smooth">
           <ChevronDown className="w-6 h-6 text-gray-400" />
         </div>
+
+        <style jsx>{`
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(255 255 255 / 0.15), transparent 70%);
+      box-shadow:
+        0 4px 8px rgba(255 255 255 / 0.1),
+        inset 0 0 20px rgba(255 255 255 / 0.2);
+      transform-style: preserve-3d;
+      animation-name: floatRotate;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    @keyframes floatRotate {
+      0% {
+        transform: translateZ(0) rotateX(0deg) rotateY(0deg) translateY(0);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateZ(40px) rotateX(180deg) rotateY(180deg) translateY(-20px);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateZ(0) rotateX(360deg) rotateY(360deg) translateY(0);
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+      }
+    }
+
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounceSmooth {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15%);
+      }
+    }
+
+    .animate-glow {
+      animation: glow 3s ease-in-out infinite;
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .animate-fade-slide-up {
+      animation: fadeSlideUp 0.8s forwards;
+    }
+
+    .animation-delay-300 {
+      animation-delay: 0.3s;
+    }
+    .animation-delay-600 {
+      animation-delay: 0.6s;
+    }
+    .animation-delay-900 {
+      animation-delay: 0.9s;
+    }
+
+    .animate-pulse-on-hover:hover {
+      animation: pulse 1.5s infinite;
+    }
+
+    .animate-bounce-smooth {
+      animation: bounceSmooth 2s infinite;
+      will-change: transform;
+    }
+
+    /* Perspective for 3D effect */
+    section#home {
+      perspective: 1000px;
+      -webkit-perspective: 1000px;
+    }
+  `}</style>
       </section>
+
+
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 text-white">
         <div className="max-w-6xl mx-auto">
-          <div
-            id="about-header"
-            data-animate
-            className={`text-center mb-16 transition-all duration-1000 ${isAnimated("about-header") ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-              }`}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">About Me</h2>
-            <div className="w-24 h-1 bg-white mx-auto"></div>
+
+          {/* Section Header */}
+          <div className="text-center mb-14">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
+
+            <div className="mt-4 w-24 h-1 bg-white mx-auto rounded-full"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div
-                id="about-card-1"
-                data-animate
-                className={`backdrop-blur-md bg-white/5 p-8 rounded-2xl border border-white/10 transition-all duration-700 ${isAnimated("about-card-1") ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-                  } hover:border-white/20 hover:transform hover:scale-105`}
-              >
-                <p className="text-lg leading-relaxed text-gray-300">
-                  I'm a passionate full-stack developer with over 5 years of experience creating digital solutions that
-                  make a difference. I specialize in modern web technologies and have a keen eye for design.
-                </p>
-              </div>
-              <div
-                id="about-card-2"
-                data-animate
-                className={`backdrop-blur-md bg-white/5 p-8 rounded-2xl border border-white/10 transition-all duration-700 ${isAnimated("about-card-2") ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-                  } hover:border-white/20 hover:transform hover:scale-105`}
-                style={{ transitionDelay: "0.2s" }}
-              >
-                <p className="text-lg leading-relaxed text-gray-300">
-                  When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                  or sharing knowledge with the developer community.
-                </p>
-              </div>
+          {/* Info Cards */}
+          <div className="grid gap-8 md:grid-cols-2">
+            {/* Who I Am */}
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-md hover:border-white/20 transition duration-300">
+              <h3 className="text-2xl font-semibold mb-3">Who I Am</h3>
+              <p className="text-gray-300 text-base leading-relaxed">
+                I'm Ashish — a full stack developer and AI/ML enthusiast dedicated to building performant, intelligent web applications. I specialize in React, Nextjs, Tailwind, Node.js, and designing scalable backend APIs, combined with applying machine learning models to solve real-world problems.        </p>
             </div>
-            <div
-              id="about-image"
-              data-animate
-              className={`relative transition-all duration-700 ${isAnimated("about-image") ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-                }`}
-            >
-              <div className="backdrop-blur-md bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                <img
-                  src="me.jpg?height=200&width=200"
-                  alt="Profile"
-                  className="w-full h-80 object-cover rounded-xl"
-                />
-              </div>
+
+            {/* Beyond Code */}
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-md hover:border-white/20 transition duration-300">
+              <h3 className="text-2xl font-semibold mb-3">Beyond Code</h3>
+              <p className="text-gray-300 text-base leading-relaxed">
+                I’m passionate about open-source contributions,When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.        </p>
             </div>
           </div>
+
+          {/* Code Style Box */}
+          <div className="mt-12 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:border-white/20 transition duration-300">
+
+            <pre className="text-sm sm:text-base font-mono text-gray-100 whitespace-pre-wrap leading-relaxed animate-typewriter">
+              {`const about = {
+               name: "Ashish",
+               role: "Full Stack Developer & AI/ML Enthusiast",
+               techStack: ["React", "Tailwind", "Node.js", "C++", "Python", "DevOps"],
+               focus:"Building scalable web apps and intelligent AI solutions with clean, maintainable code"
+            };`}
+            </pre>
+          </div>
         </div>
+
+        {/* Animation Styles */}
+        <style jsx>{`
+    .animate-typewriter {
+      border-right: 2px solid rgba(255, 255, 255, 0.5);
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      from,
+      to {
+        border-color: transparent;
+      }
+    }
+  `}</style>
       </section>
+
+
+
+
       {/* Education Section */}
       <section id="education" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
@@ -555,15 +741,23 @@ export default function Portfolio() {
                       </Button>
                     </a>
 
-                    <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex-1">
-                      <Button
-                        size="sm"
-                        className="w-full bg-black hover:bg-gray-900 text-white border border-white/20 hover:border-white/40 group-hover:animate-pulse"
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target={project.live.startsWith("http") ? "_blank" : "_self"}
+                        rel="noopener noreferrer"
+                        className="flex-1"
                       >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Live
-                      </Button>
-                    </a>
+                        <Button
+                          size="sm"
+                          className="w-full bg-black hover:bg-gray-900 text-white border border-white/20 hover:border-white/40 group-hover:animate-pulse"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Live
+                        </Button>
+                      </a>
+                    )}
+
                   </div>
 
                 </CardContent>
@@ -629,33 +823,45 @@ export default function Portfolio() {
                 }`}
             >
               <div className="backdrop-blur-md bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300">
-                <form className="space-y-6">
+                <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
                   <div className="overflow-hidden">
                     <Input
+                      name="from_name"
                       placeholder="Your Name"
+                      required
                       className="bg-black border-white/20 text-white placeholder:text-gray-400 focus:border-white transition-all duration-300 hover:border-white/40"
                     />
                   </div>
                   <div className="overflow-hidden">
                     <Input
                       type="email"
+                      name="from_email"
                       placeholder="Your Email"
+                      required
                       className="bg-black border-white/20 text-white placeholder:text-gray-400 focus:border-white transition-all duration-300 hover:border-white/40"
                     />
                   </div>
                   <div className="overflow-hidden">
                     <Input
+                      name="subject"
                       placeholder="Subject"
+                      required
                       className="bg-black border-white/20 text-white placeholder:text-gray-400 focus:border-white transition-all duration-300 hover:border-white/40"
                     />
                   </div>
                   <div className="overflow-hidden">
                     <Textarea
+                      name="message"
                       placeholder="Your Message"
                       rows={5}
+                      required
                       className="bg-black border-white/20 text-white placeholder:text-gray-400 focus:border-white transition-all duration-300 hover:border-white/40 resize-none"
                     />
                   </div>
+
+                  {/* Hidden time field */}
+                  <input type="hidden" name="time" value={new Date().toLocaleString()} />
+
                   <Button
                     type="submit"
                     className="w-full bg-black hover:bg-gray-900 text-white py-3 transition-all duration-300 transform hover:scale-105 border border-white/20 hover:border-white/40"
@@ -675,8 +881,9 @@ export default function Portfolio() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="text-2xl font-bold text-white">Ashish</h3>
-              <p className="text-gray-400 mt-2">Full Stack Developer & UI/UX Designer</p>
+              <h3 className="text-4xl font-bold animate-pulse bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
+                style={{ fontFamily: "'Dancing Script', cursive" }}>Ashish</h3>
+              <p className="text-gray-400 mt-2">Full Stack Developer & AI/ML Enthusiast</p>
             </div>
 
             <div className="flex space-x-6">
@@ -693,13 +900,19 @@ export default function Portfolio() {
                 <Linkedin className="w-6 h-6" />
               </a>
               <a
-                href="#"
+                href="https://x.com/AshishJ02790846?s=09" target="_blank"
                 className="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-110 hover:rotate-6"
               >
                 <Twitter className="w-6 h-6" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ashish_jhajharia__?igsh=MTM0cmFtb3hic3ZzZw==" target="_blank"
+                className="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-110 hover:rotate-6"
+              >
+                <Instagram className="w-6 h-6" />
+              </a>
+              <a
+                href="mailto:ashish.jhajharia2106@gmail.com"
                 className="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-110 hover:rotate-6"
               >
                 <Mail className="w-6 h-6" />
