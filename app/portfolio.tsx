@@ -474,6 +474,17 @@ export default function Portfolio() {
             };`}
             </pre>
           </div>
+          {/* Download CV Button */}
+          <div className="text-center mt-10">
+            <a
+              href="/Ashish-Resume.pdf"
+              download
+              className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-full shadow-md hover:bg-gray-200 transition duration-300"
+            >
+              Download CV
+            </a>
+          </div>
+
         </div>
 
         {/* Animation Styles */}
