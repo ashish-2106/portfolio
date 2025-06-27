@@ -209,7 +209,7 @@ export default function Portfolio() {
           <div className="flex justify-between items-center py-4">
 
             <div
-              className="text-4xl font-bold animate-pulse bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
+              className="text-4xl font-bold  bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
               style={{ fontFamily: "'Dancing Script', cursive" }}
             >
               Ashish
@@ -892,7 +892,7 @@ export default function Portfolio() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-6 md:mb-0">
-              <h3 className="text-4xl font-bold animate-pulse bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
+              <h3 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-transparent bg-clip-text tracking-wide drop-shadow-lg"
                 style={{ fontFamily: "'Dancing Script', cursive" }}>Ashish</h3>
               <p className="text-gray-400 mt-2">Full Stack Developer & AI/ML Enthusiast</p>
             </div>
