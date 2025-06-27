@@ -514,7 +514,7 @@ export default function Portfolio() {
 };`}
                 </code>
               </pre>
-              <span className="typewriter-cursor"></span>
+              
             </div>
           </div>
 
