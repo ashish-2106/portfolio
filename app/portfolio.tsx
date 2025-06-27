@@ -461,19 +461,69 @@ export default function Portfolio() {
                 I’m passionate about open-source contributions,When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing knowledge with the developer community.        </p>
             </div>
           </div>
-
-          {/* Code Style Box */}
+          {/* Code Style Box with blinking cursor that stays visible and moves with the text */}
           <div className="mt-12 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:border-white/20 transition duration-300">
+            <style>
+              {`
+      @keyframes typewriterWithCursor {
+        0% { clip-path: inset(0 100% 0 0); }
+        50% { clip-path: inset(0 0% 0 0); }
+        70% { clip-path: inset(0 0% 0 0); }
+        100% { clip-path: inset(0 100% 0 0); }
+      }
 
-            <pre className="text-sm sm:text-base font-mono text-gray-100 whitespace-pre-wrap leading-relaxed animate-typewriter">
-              {`const about = {
-               name: "Ashish",
-               role: "Full Stack Developer & AI/ML Enthusiast",
-               techStack: ["React", "Tailwind", "Node.js", "C++", "Python", "DevOps"],
-               focus:"Building scalable web apps and intelligent AI solutions with clean, maintainable code"
-            };`}
-            </pre>
+      @keyframes blinkCursor {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0; }
+      }
+
+      .typewriter-wrapper {
+        position: relative;
+        min-height: 180px;
+      }
+
+      .typewriter-text {
+        display: inline-block;
+        white-space: pre-wrap;
+        animation: typewriterWithCursor 6s steps(60) infinite;
+        overflow: hidden;
+        vertical-align: top;
+      }
+
+      .typewriter-cursor {
+        position: absolute;
+        top: 16px; /* Adjust to align with text top */
+        left: auto;
+        right: 1.5rem; /* Matches .p-6 padding */
+        width: 2px;
+        height: calc(100% - 32px); /* same as pre padding */
+        background-color: white;
+        animation: blinkCursor 1s step-end infinite;
+      }
+    `}
+            </style>
+
+            <div className="typewriter-wrapper relative">
+              <pre className="text-sm sm:text-base font-mono text-gray-100 whitespace-pre-wrap leading-relaxed m-0">
+                <code className="typewriter-text">
+                  {`const about = {
+  name: "Ashish",
+  role: "Full Stack Developer & AI/ML Enthusiast",
+  techStack: ["React", "Tailwind", "Node.js", "C++", "Python", "DevOps"],
+  focus:"Building scalable web apps and intelligent AI solutions with clean, maintainable code"
+};`}
+                </code>
+              </pre>
+              <span className="typewriter-cursor"></span>
+            </div>
           </div>
+
+
+
+
+
+
+
           {/* Download CV Button */}
           <div className="text-center mt-10">
             <a
