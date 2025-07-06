@@ -197,6 +197,40 @@ export default function Portfolio() {
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
+  // Word-by-word typing logic for About section
+  const codeContent = `const about = {
+  name: "Ashish",
+  role: "Full Stack Developer & AI/ML Enthusiast",
+  techStack: ["React", "Tailwind", "Node.js", "C++", "Python", "DevOps"],
+  focus: "Building scalable web apps and intelligent AI solutions with clean, maintainable code"
+};`;
+
+  const words = codeContent.split(" ");
+  const [typedWords, setTypedWords] = useState<string[]>([]);
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        if (wordIndex < words.length) {
+          setTypedWords((prev) => [...prev, words[wordIndex]]);
+          setWordIndex((prev) => prev + 1);
+        } else {
+          setIsDeleting(true);
+        }
+      } else {
+        if (typedWords.length > 0) {
+          setTypedWords((prev) => prev.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setWordIndex(0);
+        }
+      }
+    }, 150); // adjust speed here
+
+    return () => clearTimeout(timeout);
+  }, [wordIndex, isDeleting, typedWords]);
 
 
 
@@ -462,61 +496,16 @@ export default function Portfolio() {
             </div>
           </div>
           {/* Code Style Box with blinking cursor that stays visible and moves with the text */}
-          <div className="mt-12 bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:border-white/20 transition duration-300">
-            <style>
-              {`
-      @keyframes typewriterWithCursor {
-        0% { clip-path: inset(0 100% 0 0); }
-        50% { clip-path: inset(0 0% 0 0); }
-        70% { clip-path: inset(0 0% 0 0); }
-        100% { clip-path: inset(0 100% 0 0); }
-      }
 
-      @keyframes blinkCursor {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0; }
-      }
 
-      .typewriter-wrapper {
-        position: relative;
-        min-height: 180px;
-      }
-
-      .typewriter-text {
-        display: inline-block;
-        white-space: pre-wrap;
-        animation: typewriterWithCursor 6s steps(60) infinite;
-        overflow: hidden;
-        vertical-align: top;
-      }
-
-      .typewriter-cursor {
-        position: absolute;
-        top: 16px; /* Adjust to align with text top */
-        left: auto;
-        right: 1.5rem; /* Matches .p-6 padding */
-        width: 2px;
-        height: calc(100% - 32px); /* same as pre padding */
-        background-color: white;
-        animation: blinkCursor 1s step-end infinite;
-      }
-    `}
-            </style>
-
-            <div className="typewriter-wrapper relative">
-              <pre className="text-sm sm:text-base font-mono text-gray-100 whitespace-pre-wrap leading-relaxed m-0">
-                <code className="typewriter-text">
-                  {`const about = {
-  name: "Ashish",
-  role: "Full Stack Developer & AI/ML Enthusiast",
-  techStack: ["React", "Tailwind", "Node.js", "C++", "Python", "DevOps"],
-  focus:"Building scalable web apps and intelligent AI solutions with clean, maintainable code"
-};`}
-                </code>
-              </pre>
-              
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-md hover:border-white/20 transition duration-300 mt-12 shadow-lg">
+            <div className="whitespace-pre-wrap leading-relaxed min-h-[150px] text-sm sm:text-base">
+              {typedWords.join(" ")}
+              <span className="blinking-cursor">|</span>
             </div>
           </div>
+
+
 
 
 
@@ -609,7 +598,7 @@ export default function Portfolio() {
                         />
                       </div>
                       <div className="md:text-right">
-                        <h3 className="text-xl font-bold text-white">New LBS School</h3>
+                        <a href="https://www.google.com/search?q=New+LBS+School+bahrounda+kalan&sca_esv=204162c172a9f5fb&rlz=1C1RXQR_enIN1047IN1047&sxsrf=AE3TifPYb5ac2P5Aa2hO1J6Ze_6wXWsvtg%3A1751818515349&ei=E6FqaNePFcee4-EPn-yN8AQ&ved=0ahUKEwiX5cXC0KiOAxVHzzgGHR92A04Q4dUDCBA&uact=5&oq=New+LBS+School+bahrounda+kalan&gs_lp=Egxnd3Mtd2l6LXNlcnAiHk5ldyBMQlMgU2Nob29sIGJhaHJvdW5kYSBrYWxhbjIHECMYsAIYJzIFEAAY7wUyBRAAGO8FMgUQABjvBTIIEAAYgAQYogQyCBAAGIAEGKIESJIJUGtYa3ABeACQAQCYAckBoAHJAaoBAzItMbgBA8gBAPgBAZgCAqAC1AHCAgoQIxiwAhiwAxgnwgIIEAAYsAMY7wXCAgsQABiABBiwAxiiBJgDAOIDBRIBMSBAiAYBkAYGkgcFMS4wLjGgB5AGsgcDMi0xuAfNAcIHAzItMsgHCA&sclient=gws-wiz-serp" target="_blank"><h3 className="text-xl font-bold text-white">New LBS School</h3></a>
                         <p className="text-gray-400 text-sm">2010 - 2021</p>
                       </div>
                     </div>
@@ -657,7 +646,8 @@ export default function Portfolio() {
                         />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-white">SRM University</h3>
+                        <a href="https://www.google.com/search?q=srm+university+kattankulathur&sca_esv=204162c172a9f5fb&rlz=1C1RXQR_enIN1047IN1047&sxsrf=AE3TifP9V_W9IEH-HEW7v4wlUuF3q0Fspg%3A1751818609730&ei=caFqaL2wLJ2U4-EPyr7CuAw&gs_ssp=eJzj4tTP1TdIKjC3rDJg9JItLspVKM3LLEstKs4sqVTITiwpSczLLs1JLMkoLQIALHEPSg&oq=srm+university+Katt&gs_lp=Egxnd3Mtd2l6LXNlcnAiE3NybSB1bml2ZXJzaXR5IEthdHQqAggAMggQLhiABBixAzIFEAAYgAQyBRAAGIAEMgUQABiABDIFEAAYgAQyBRAAGIAEMgoQABiABBgUGIcCMgUQABiABDILEC4YgAQYxwEYrwEyBRAAGIAEMhcQLhiABBixAxiXBRjcBBjeBBjgBNgBAUi8MFCdFljDJXAAeAKQAQGYAeIEoAHBEKoBCTItMS4xLjIuMbgBAcgBAPgBAZgCBqACthbCAgQQABhHwgIKECMYgAQYJxiKBcICDRAuGIAEGLEDGEMYigXCAgoQABiABBhDGIoFwgINEC4YgAQYsQMYFBiHAsICHBAuGIAEGLEDGBQYhwIYlwUY3AQY3gQY4ATYAQGYAwCIBgGQBgi6BgYIARABGBSSBw0xLjMtMi4xLjEuMC4xoAe4QrIHBzMtMi4xLjG4B6UNwgcFMC4yLjTIBx0&sclient=gws-wiz-serp" target="_blank">                        <h3 className="text-xl font-bold text-white">SRM University</h3>
+                        </a>
                         <p className="text-gray-400 text-sm">2022 - 2026</p>
                       </div>
                     </div>
