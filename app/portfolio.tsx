@@ -819,7 +819,7 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-      <div className="mt-12 text-center">
+      <div className="mt-1 text-center">
         <a
           href="https://github.com/ashish-2106"
           target="_blank"
