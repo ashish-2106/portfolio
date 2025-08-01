@@ -809,7 +809,9 @@ export default function Portfolio() {
                       </a>
                     )}
 
+
                   </div>
+
 
                 </CardContent>
               </Card>
@@ -817,6 +819,22 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+      <div className="mt-12 text-center">
+        <a
+          href="https://github.com/ashish-2106"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button
+            size="lg"
+            className="px-8 py-3 bg-gradient-to-r from-white/10 to-white/20 text-white border border-white/20 rounded-full hover:scale-105 hover:shadow-lg transition-transform duration-300"
+          >
+            <span className="mr-2">✨ Explore More Works</span>
+            <ExternalLink className="w-5 h-5" />
+          </Button>
+        </a>
+      </div>
+
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
