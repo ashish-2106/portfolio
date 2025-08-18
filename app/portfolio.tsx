@@ -186,7 +186,7 @@ export default function Portfolio() {
       image: "/passmanager.png",
       tech: ["Next.js", "Clerk", "Tailwind CSS", "ShadCN UI", "Encryption"],
       github: "https://github.com/ashish-2106/Password-Manager.git",
-      live: "/coming-soon",
+      live: "https://password-manager-yonr-nwffiqolk.vercel.app/",
 
     },
   ]
