@@ -1,6 +1,7 @@
-import Portfolio from "./portfolio"
+import { BookLayout } from "@/components/BookLayout"
+
 
 
 export default function Page() {
-  return <Portfolio />
+  return <BookLayout />
 }

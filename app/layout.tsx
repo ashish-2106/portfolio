@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Dancing_Script } from 'next/font/google';
 import { Toaster } from "react-hot-toast";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Serif for headings
+const playfair = Playfair_Display({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Sans-serif for body
+const inter = Inter({
   subsets: ["latin"],
-});
-const dancing = Dancing_Script({
-  subsets: ['latin'],
-  weight: ['400', '700'], // Choose weights you need
-  variable: '--font-dancing', // optional: if using CSS variables
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -29,26 +27,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
         <Toaster
           toastOptions={{
             style: {
-              background: '#1a202c', // Dark theme background
-              color: '#f7fafc',      // Light text color
-            }
+              background: "#1a202c",
+              color: "#f7fafc",
+            },
           }}
           position="top-center"
-          reverseOrder={true}
+          reverseOrder
         />
         {children}
-
       </body>
     </html>
   );
